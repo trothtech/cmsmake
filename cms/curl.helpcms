@@ -169,7 +169,7 @@ Where possible, CMS CURL uses the same return codes as POSIX CURL:
 .cs 7 on
 See the following web pages:
 
-http://curl.haxx.se
+https://curl.haxx.se/
 ftp://ftp.sunet.se/pub/www/utilities/curl/
 
 See the following related topics:

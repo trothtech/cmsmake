@@ -14,11 +14,11 @@
       MAKE     REXX     *  -- 'make' as a CMS Pipelines stage, version 2.0.43
       CMSMAKE  CMSMAKE  *  -- simple 'make' rules for [re]packaging CMS Make
       _GENERIC CMSMAKE  *  -- rules for everything
-      _DEFAULT CMSMAKE  *  -- rules for when you don't name a makefile
+      _DEFAULT CMSMAKE  *  -- for when you don't name a makefile
 * make -f cmsmake archives
 *
       MAKE     HELPCMS  *  -- brief help
-*     OVERVIEW HELPMAKE *  -- missing
+      OVERVIEW HELPMAKE *  --
       VARIABLES HELPMAKE *  --
       CMSMKCC  EXEC     *  -- C compiler wrapper
       CMSMKCC  HELPCMS  *  -- help for the C compiler wrapper
@@ -51,10 +51,10 @@
       NEW      EXEC     *  --
       NEW      HELPCMS  *  --
 *
-      UUENCODE EXEC     *  --
+      UUENCODE EXEC     *  -- common wrapper around the pipeline
       UUENCODE REXX     *  --
       UUENCODE HELPCMS  *  --
-      UUDECODE EXEC     *  --
+      UUDECODE EXEC     *  -- common wrapper around the pipeline
       UUDECODE REXX     *  --
       UUDECODE HELPCMS  *  --
 *
@@ -64,37 +64,39 @@
       WHO      EXEC     *  -- common wrapper around the pipeline
       WHO      REXX     *  -- make_version = "2.0.43"
       WHO      HELPCMS  *  --
+      FINGER   EXEC     *  -- common wrapper around the pipeline
+      FINGER   REXX     *  --
+*     FINGER   HELPCMS  *  -- missing, to be written
 *
       HEAD     EXEC     *  -- common wrapper around the pipeline
       HEAD     REXX     *  --
       TAIL     EXEC     *  -- common wrapper around the pipeline
       TAIL     REXX     *  --
 *
-      HISTORY  REXX     *  --
+      HISTORY  EXEC     *  -- common wrapper around the pipeline
+      HISTORY  REXX     *  -- CP console input history (command history)
 *
 * miscellaneous
-*     LOGNAME  REXX     *  -- missing
-*     DATE     EXEC     *  -- missing
-*     DATE     REXX     *  -- missing
-      TTY      REXX     *  --
+      LOGNAME  EXEC     *  -- common wrapper around the pipeline
+      LOGNAME  REXX     *  --
+      DATE     EXEC     *  -- common wrapper around the pipeline
+      DATE     REXX     *  --
       TTY      EXEC     *  -- common wrapper around the pipeline
+      TTY      REXX     *  --
 *
-*     MKDIR    EXEC     *  -- missing
-*
-*     RXDRCNAF C        *  -- missing
-*     RXDRCZVM C        *  -- missing
-*     RXDRCBVM C        *  -- missing
-*     RXDIAGRC C        *  -- missing
-*     RXDIAGRC H        *  -- missing
-*     RXDIAGRC CMSMAKE  *  -- missing
+*     MKDIR    EXEC     *  -- missing, also 'md'
 *
 *     LS       EXEC     *  -- missing
-*     CAT      EXEC     *  -- missing
-*     CAT      REXX     *  -- missing
-*     HCP      EXEC     *  -- missing
+      CAT      EXEC     *  -- common wrapper around the pipeline
+      CAT      REXX     *  -- conCATenate
+      HCP      REXX     *  -- hypervisor control program command interface
+      HCP      EXEC     *  -- common wrapper around the pipeline
+      VMCP     REXX     *  --
+      VMCP     EXEC     *  -- common wrapper around the pipeline
+*
       PASSWD   EXEC     *  --
 *
-*     GETMSGS  EXEC     *  -- missing
+*     GETMSGS  EXEC     *  -- missing, see EXTRMSGS
       EXTRMSGS EXEC     *  -- extract messages from a repository
 *
       XARGS    REXX     *  -- only meaningful in a pipeline
@@ -102,5 +104,19 @@
       ECHO     EXEC     *  -- pipeline and command are separate
       GREP     REXX     *  -- command is skeletal
       GREP     EXEC     *  -- common wrapper around the pipeline
+      VER      EXEC     *  -- common wrapper around the pipeline
+      VER      REXX     *  --
+*
+      RXDIAGRC C        *  -- Rexx DiagRC() function, but only one op code
+      RXDRCNAF C        *  -- Neale's logic
+      RXDRCBVM C        *  -- Boeblingen/Borntraeger logic
+      RXDRCZVM C        *  -- z/VM in C driving DIAG operation directly
+      RXDIAGRC H        *  -- header file for the project
+      RXDIAGRC CMSMAKE  *  -- make "rules file" for the project
+*
+*     CLS
+*     CLEAR
+*     MORE
+*     TIME
 *
 *

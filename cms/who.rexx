@@ -11,8 +11,10 @@ g.nonames = 0               /* a flag to say if NAMES file is missing */
 
 /* if no other output then attach the console */
 'STREAMSTATE OUTPUT'
+If rc = 4 Then rc = 0
+If rc = 8 Then rc = 0
 If rc = 12 Then 'ADDPIPE *.OUTPUT: | CONSOLE'
-If rc /= 0 & rc /= 4 Then Exit rc
+If rc ^= 0 Then Exit rc
 
 /* attach a 'cp query names' as our input */
 'ADDPIPE CP QUERY NAMES EXTENDED | SPLIT AT /,/ | STRIP' ,

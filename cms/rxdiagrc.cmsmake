@@ -1,0 +1,109 @@
+#
+#		Rules for RXDIAGRC package.
+#
+
+# where we will install the REXX DiagRC module
+prefix=/usr
+# where to find REXX components
+rexxprefix=/usr/opt/regina
+
+#debugflag	=	-DRXDIAGRC_DEBUG
+debugflag	=	
+
+BASEURL         =       http://www.casita.net/pub/rxdiagrc
+MANIFEST        =       rxdiagrc.c rxdiagrc.h \
+			rxdrcbvm.c rxdrcnaf.c rxdrczvm.c
+
+.PHONY:  all install clean distclean test help
+
+_default:
+	$(MAKE) all
+
+all:	librxdiagrc.so
+
+install:  librxdiagrc.so
+	@mkdir -p $(prefix)/lib/.
+	install $+ $(prefix)/lib/.
+
+clean:
+	rm -f *.o *.so a.out hcp hcp.exec
+	@find . -type f -print | grep ';' | xargs -r rm
+
+distclean:
+	$(MAKE) clean
+
+test:	rxdiagrc.rx librxdiagrc.so
+	sh -c ' LD_LIBRARY_PATH=.:$$LD_LIBRARY_PATH ; \
+		export LD_LIBRARY_PATH ; \
+		exec $(rexxprefix)/bin/regina $< '
+
+help:
+	@echo "$(MAKE):"
+	@echo "$(MAKE):  This is the build logic for RXDIAGRC."
+	@echo "$(MAKE):  Most likely, you want to issue the commands:"
+	@echo "$(MAKE):"
+	@echo "$(MAKE):          ./configure"
+	@echo "$(MAKE):          make all"
+	@echo "$(MAKE):"
+
+variables:
+	@echo '$(.VARIABLES)'
+
+librxdiagrc.so:  rxdiagrc.o rxdrcnaf.o rxdrcbvm.o rxdrczvm.o
+	$(LD) -shared -o $@ $+
+
+rxdiagrc.o:	rxdiagrc.c $(rexxprefix)/include/rexxsaa.h
+	$(CC) -I$(rexxprefix)/include -fPIC $(debugflag) -c $<
+
+rxdrcnaf.o:	rxdrcnaf.c
+	$(CC) -fPIC $(debugflag) -c $<
+
+rxdrcbvm.o:	rxdrcbvm.c
+	$(CC) -fPIC $(debugflag) -c $<
+
+rxdrczvm.o:	rxdrczvm.c
+	$(CC) -fPIC $(debugflag) -c $<
+
+hcp:		hcp.rx
+	@cat hcp.rx \
+	  | sed '1,1s~¬/\* #!~#!~' \
+	  | sed '2,2s~¬# \*\* ~# /\* ~' \
+	  | cat > hcp
+	@chmod +x hcp
+
+hcp.exec:	hcp.rx
+	@cms ' pipe < hcp rx \
+	  | > hcp exec a
+# might should have some conversion to take POSIX to CMS
+# but for now the source is assumed to be CMS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rxdiagrc.c:
+	wget -q $(BASEURL)/$@
+
+rxdiagrc.h:
+	wget -q $(BASEURL)/$@
+
+rxdrcbvm.c:
+	wget -q $(BASEURL)/$@
+
+rxdrcnaf.c:
+	wget -q $(BASEURL)/$@
+
+rxdrczvm.c:
+	wget -q $(BASEURL)/$@
+
+

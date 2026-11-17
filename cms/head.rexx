@@ -10,6 +10,13 @@
 
 make_version = "2.0.43"
 
+/* if no other output then attach the console */
+'STREAMSTATE OUTPUT'
+If rc = 4 Then rc = 0
+If rc = 8 Then rc = 0
+If rc = 12 Then 'ADDPIPE *.OUTPUT: | CONSOLE'
+If rc ^= 0 Then Exit rc
+
 /* set some defaults */
 Parse Arg argstring "(" opts ")" .
 Parse Source . . arg0 .

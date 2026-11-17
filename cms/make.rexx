@@ -11,6 +11,8 @@ Numeric Digits 20
 
 /* if no other output, attach console */
 'STREAMSTATE OUTPUT'
+If rc = 4 Then rc = 0
+If rc = 8 Then rc = 0
 If rc = 12 Then 'ADDPIPE *.OUTPUT: | CONSOLE'
 If rc ^= 0 Then Exit rc
 

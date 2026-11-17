@@ -15,7 +15,7 @@
  *                                                                    *
  *                                                                    */
 
-make_version = "2.0.42"
+make_version = "2.0.43"
 
 /* if no other output then attach console */
 'STREAMSTATE OUTPUT'

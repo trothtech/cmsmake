@@ -1,0 +1,50 @@
+.cm
+.cm
+.cm       Name: OVERVIEW HELPMAKE
+.cm
+.cm             This file is part of the "CMS Make" package.
+.cm
+.cm
+.cs 1 on
+Overview of CMS Make
+
+CMS Make attempts to follow a minimal subset of POSIX 'make' features.
+The overriding goal is that you can have a common makefile between CMS
+and various Unix or POSIX environments (eg: Linux or OpenVM).
+
+The syntax used by CMS Make is slightly different from the official
+rules syntax for POSIX 'make' rules file or "makefile".  But it is
+visually similar, easier to use in CMS (with XEDIT), and iscompatible
+with common practice in makefiles.
+.cs 1 off
+
+.cs 2 on
+¢|Rules Syntax¢%
+
+A simple rule in CMS Make looks like ...
+ +-------------+-------------------------------------------------------+
+ |   target:   |   dependency   [dependency  ...]                      |
+ |             |   action                                              |
+ |             |   [action]                                            |
+ |             |   [...]                                               |
+ +-------------+-------------------------------------------------------+
+
+The "target" is a file.  The "dependency" is a file (or files).
+The action is what to do if the dependency is newer than the target
+or if the dependency exists and the target does not.
+
+Actions must be indented,  but the leading white space may be blanks
+and need not be TAB characters as with POSIX 'make' rules syntax.
+
+
+.cs 2 off
+
+
+
+CMS MAKE DOES NOT HANDLE COMPLEX QUOTING.
+Commands read from the rules file(s) are passed to CP, CMS,
+or CMS Pipelines and are not passed to a shell unless explicitly
+indicitated.  (Which also requires that the shell be installed
+which is beyond the scope of this document.)
+
+
