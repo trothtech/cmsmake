@@ -1,0 +1,36 @@
+/*
+ *
+ *        Name: EXTRMSGS EXEC
+ *        Date: 2025-09-19 and probably prior
+ *
+ *              This program is part of the CMS Make package.
+ */
+
+make_version = "2.0.43"
+
+Parse Upper Arg applid . '(' . ')' .
+If applid = "" Then Do ; 'XMITMSG 1 (ERRMSG' ; Exit 24 ; End
+nada = applid || "EXT"
+
+'SET LANGUAGE (ADD' applid 'USER'
+If rc ^= 0 Then Exit rc
+
+'PIPE STRLITERAL #AAAAA# | DUPLICATE 9998' ,
+    '| SPEC #XMITMSG# NW RECNO NW' ,
+         '#"&1" "&2" "&3" "&4" "&5" "&6" "&7" "&8"# NW' ,
+         '#(APPLID' applid 'CALLER EXT# NW' ,
+    '| COMMAND | NLOCATE #DMSMGM814E#' ,
+    '| CHANGE #' || nada || '# ## | STEM M.'
+
+Do i = 1 to m.0
+    Parse Var m.i n t
+    l = ""
+    q = Verify(n,"0123456789")
+    If q > 0 Then Do ; l = Substr(n,q) ; n = Left(n,q-1) ; End
+    m.i = Format(n,4) || "    " || l || " " || t
+End
+
+/* Note: The file will be RECFM=V which 'genmsg' will not like.       */
+'PIPE STEM M. | >' applid 'MESSAGES A'
+
+

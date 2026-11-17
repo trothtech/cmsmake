@@ -1,0 +1,16 @@
+/*                                                                    *
+ *                                                                    *
+ *        Name: ADDLIB EXEC                                           *
+ *        Date: 2016-02-25                                            *
+ *              This program is part of the CMS Make package.         *
+ *                                                                    *
+ *                                                                    */
+
+Parse Upper Arg type libs "(" . ")" .
+
+'GLOBAL' type libs
+If rc ^= 0 Then Exit rc
+
+Exit 0
+
+
